@@ -6,9 +6,10 @@ import java.util.*;
 
 public class SolveIt {
 
+	static double eps=0.00000001;
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
 		BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -17,14 +18,16 @@ public class SolveIt {
 		while ((line = in.readLine()) != null) {
 			String[] act = line.split(" ");
 
-			String ans = bisection(act);
+			double ans = bisection(act);
+			DecimalFormat df = new DecimalFormat("0.0000");
 
-			System.out.println(ans);
+			out.write(ans == -1 ? "No solution\n" : df.format(ans)+"\n");
+			System.out.print(ans == -1 ? "No solution\n" : df.format(ans)+"\n");
 		}
-
+out.close();
 	}
 
-	static String bisection(String[] act) {
+	static double bisection(String[] act) {
 
 		int p = Integer.parseInt(act[0]);
 		int q = Integer.parseInt(act[1]);
@@ -33,29 +36,36 @@ public class SolveIt {
 		int t = Integer.parseInt(act[4]);
 		int u = Integer.parseInt(act[5]);
 		double inf = 0, sup = 1;
-		
-DecimalFormat df=new DecimalFormat("#.####");
-String ant=".";
-		while (inf <= sup) {
 
+	
+		//DecimalFormat df = new DecimalFormat("0.0000");
+		//String ant = ".";
+		int cont = 0;
+		while (inf <= sup) {
+			cont++;
 			double x = (sup + inf) / 2;
 
-			double f = (p * Math.exp(-x)) + (q * Math.sin(x)) + (r * Math.cos(x)) + (s * Math.tan(x)) + (t * (x * x)) + u;
-			String answer=df.format(f);
-			
-			if (answer.equals(ant))
-				return x+"";
-			else if (f > 0) {
+			double f = (p * Math.exp(-x)) + (q * Math.sin(x)) + (r * Math.cos(x)) + (s * Math.tan(x)) + (t * (x * x))
+					+ u;
+		//	String answer = df.format(f);
+
+			if (cont==40 || f == 0) {
+			//	System.out.println("answ:"+f+"cont:"+cont);
+if(f<1)
+				return x;
+else return -1;
+
+			} else if (f > 0) {
 
 				inf = x;
 			} else {
 				sup = x;
-				
+
 			}
-			 ant=answer;
+			//ant = answer;
 		}
 
-		return "No solution";
+		return -1;
 	}
 
 }
