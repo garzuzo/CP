@@ -6,7 +6,8 @@ import java.util.*;
 
 public class SolveIt {
 
-	static double eps=0.00000001;
+	static double eps = 0.00000001;
+
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 
@@ -21,10 +22,10 @@ public class SolveIt {
 			double ans = bisection(act);
 			DecimalFormat df = new DecimalFormat("0.0000");
 
-			out.write(ans == -1 ? "No solution\n" : df.format(ans)+"\n");
-			System.out.print(ans == -1 ? "No solution\n" : df.format(ans)+"\n");
+			out.write(ans==-1? "No solution\n" : df.format(ans) + "\n");
+			//System.out.print(ans==-1 ? "No solution\n" : (df.format(ans) + "\n"));
 		}
-out.close();
+		out.close();
 	}
 
 	static double bisection(String[] act) {
@@ -37,24 +38,22 @@ out.close();
 		int u = Integer.parseInt(act[5]);
 		double inf = 0, sup = 1;
 
-	
-		//DecimalFormat df = new DecimalFormat("0.0000");
-		//String ant = ".";
+		// DecimalFormat df = new DecimalFormat("0.0000");
+		// String ant = ".";
 		int cont = 0;
-		while (inf <= sup) {
+		double x =-1;
+		double f=0;
+		while (sup - inf > 1E-9) {
 			cont++;
-			double x = (sup + inf) / 2;
+			 x = (sup + inf) / 2;
 
-			double f = (p * Math.exp(-x)) + (q * Math.sin(x)) + (r * Math.cos(x)) + (s * Math.tan(x)) + (t * (x * x))
+			 f = (p * Math.exp(-x)) + (q * Math.sin(x)) + (r * Math.cos(x)) + (s * Math.tan(x)) + (t * (x * x))
 					+ u;
-		//	String answer = df.format(f);
+			// String answer = df.format(f);
 
-			if (cont==40 || f == 0) {
-			//	System.out.println("answ:"+f+"cont:"+cont);
-if(f<1)
+			if (f == 0) {
+				// System.out.println("answ:"+f+"cont:"+cont);
 				return x;
-else return -1;
-
 			} else if (f > 0) {
 
 				inf = x;
@@ -62,10 +61,12 @@ else return -1;
 				sup = x;
 
 			}
-			//ant = answer;
+			// ant = answer;
 		}
-
-		return -1;
+		// inf==0 || sup==1
+		if(Math.abs(f)>1E-6)
+			return -1;
+		return x;
 	}
 
 }
