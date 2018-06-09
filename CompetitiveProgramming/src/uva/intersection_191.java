@@ -28,6 +28,9 @@ public class intersection_191 {
 			line l23 = new line(x22, y21, 0);
 			line l24 = new line(x21, y22, 0);
 
+			boolean answ = areIntersect(l1, l21, new point(x1, y1)) || areIntersect(l1, l22, new point(x1, y1))
+					|| areIntersect(l1, l23, new point(x1, y1)) || areIntersect(l1, l24, new point(x1, y1));
+			System.out.println(answ?"Y":"N");
 		}
 
 	}
