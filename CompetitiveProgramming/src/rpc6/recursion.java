@@ -1,5 +1,7 @@
 package rpc6;
 
+
+
 import java.io.*;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -27,6 +29,8 @@ public class recursion {
 			double k = in.nextInt();
 			double a = 0;
 			boolean circle = true;
+			if(k==1)
+				System.out.println((int)(r*r)+ "PI");
 			for (int j = 1; j < k; j++) {
 
 				if (circle) {
@@ -39,13 +43,13 @@ public class recursion {
 					double newR = 2 * r;
 
 					double aCircle = newR * newR + newR * newR;
-					r=(int)aCircle/2;
+					r=Math.sqrt(aCircle)/2;
 					
 					aCircle /= 4;
 
 					circle = true;
 					if (j + 1 == k)
-						System.out.println((long)aCircle + "PI");
+						System.out.println((long)(aCircle) + "PI");
 				}
 
 			}

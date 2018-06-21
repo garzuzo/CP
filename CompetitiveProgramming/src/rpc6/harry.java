@@ -8,33 +8,26 @@ public class harry {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 
-		Scanner in = new Scanner(System.in);
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
-		int n = in.nextInt();
-		in.nextLine();
+		int n = Integer.parseInt(in.readLine());
+
 		for (int i = 0; i < n; i++) {
 			if (i > 0)
 				out.write("\n");
-			String act = in.nextLine();
+			String act = in.readLine();
 			while (!act.equals("*")) {
-
-				String[] arrAct = act.split("");
-
-				StringTokenizer st = new StringTokenizer(act);
+				String[] arrAct = act.split(" ");
+				// StringTokenizer st = new StringTokenizer(act);
 				int upper = 0;
 				StringBuilder outAct = new StringBuilder();
 				String stAct = "";
 				for (int j = 0; j < arrAct.length; j++) {
-					if (arrAct[j].equals(" ")) {
-						outAct.append(" ");
-					} else {
-						while(j<arrAct.length &&!arrAct[j].equals(" ")){
-							j++;
-						}
-						j--;
-						stAct = st.nextToken();
 
-						if (upper == 0) {
+					stAct = arrAct[j];
+					boolean up = stAct.matches("[A-Z]+[.’;,a-z]*");
+
+					if (up){
 							stAct = stAct.toLowerCase();
 
 							upper++;
@@ -162,17 +155,18 @@ public class harry {
 							}
 
 						}
+					if (j + 1 != arrAct.length) {
+						outAct.append(" ");
 					}
-
 				}
 				// outAct.append(stAct.trim());
 				out.write(outAct + "\n");
-				act = in.nextLine();
+				act = in.readLine();
 			}
-			out.flush();
+		
 
 		}
-
+		out.flush();
 	}
 
 }

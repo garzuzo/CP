@@ -13,6 +13,8 @@ public class robot {
 		// TODO Auto-generated method stub
 Scanner in=new Scanner(System.in);
 
+
+
 int numQ=in.nextInt();
 for (int i = 0; i < numQ; i++) {
 int n=in.nextInt();	
@@ -35,52 +37,52 @@ n1=n;
 			//cont++;
 			dfs(i, j,matrix);
 		}
-		 if(i<n1&&!matrix[i+1][j]) {
+		 if(i<n1&&!matrix[i+n1][j]) {
 			cont++;
-			matrix[i+1][j]=true;
-			dfs(i+1, j,matrix);
-			matrix[i+1][j]=false;
-		} if(j<n1&&!matrix[i][j+1]) {
-			matrix[i][j+1]=true;
+			matrix[i+n1][j]=true;
+			dfs(i+n1, j,matrix);
+			//matrix[i+n1][j]=false;
+		} if(j<n1&&!matrix[i][j+n1]) {
+			matrix[i][j+n1]=true;
 			cont++;
-			dfs(i, j+1,matrix);
-			matrix[i][j+1]=false;
+			dfs(i, j+n1,matrix);
+			//matrix[i][j+n1]=false;
 			
-		} if(i>0&&!matrix[i-1][j]) {
+		} if(i>0&&!matrix[i-n1][j]) {
 			cont++;
-			matrix[i-1][j]=true;
-			dfs(i-1, j,matrix);
-			matrix[i-1][j]=false;
-		} if(j>0&&!matrix[i][j-1]) {
+			matrix[i-n1][j]=true;
+			dfs(i-n1, j,matrix);
+			//matrix[i-n1][j]=false;
+		} if(j>0&&!matrix[i][j-n1]) {
 			cont++;
-			matrix[i][j-1]=true;
-			dfs(i, j-1,matrix);
-			matrix[i][j-1]=false;
+			matrix[i][j-n1]=true;
+			dfs(i, j-n1,matrix);
+			//matrix[i][j-n1]=false;
 		}
 		//diagonals
-		 if(j>0&&i<n1&&!matrix[i+1][j-1]) {
+		 if(j>0&&i<n1&&!matrix[i+n1][j-n1]) {
 			cont++;
-			matrix[i+1][j-1]=true;
-			dfs(i+1, j-1,matrix);
-			matrix[i+1][j-1]=false;
+			matrix[i+n1][j-n1]=true;
+			dfs(i+n1, j-n1,matrix);
+			//	matrix[i+n1][j-n1]=false;
 		}
-		 if(j>0&&i>0&&!matrix[i-1][j-1]) {
+		 if(j>0&&i>0&&!matrix[i-n1][j-n1]) {
 			cont++;
-			matrix[i-1][j-1]=true;
-			dfs(i-1, j-1,matrix);
-			matrix[i-1][j-1]=false;
+			matrix[i-n1][j-n1]=true;
+			dfs(i-n1, j-n1,matrix);
+			//matrix[i-n1][j-n1]=false;
 		}
-		 if(i>0&&j<n1&&!matrix[i-1][j+1]) {
+		 if(i>0&&j<n1&&!matrix[i-n1][j+n1]) {
 			cont++;
-			matrix[i-1][j+1]=true;
-			dfs(i-1, j+1,matrix);
-			matrix[i-1][j+1]=false;
+			matrix[i-n1][j+n1]=true;
+			dfs(i-n1, j+n1,matrix);
+			//	matrix[i-n1][j+n1]=false;
 		}
-		 if(j<n1&&i<n1&&!matrix[i+1][j+1]) {
+		 if(j<n1&&i<n1&&!matrix[i+n1][j+n1]) {
 			cont++;
-			matrix[i+1][j+1]=true;
-			dfs(i+1, j+1,matrix);
-			matrix[i+1][j+1]=false;
+			matrix[i+n1][j+n1]=true;
+			dfs(i+n1, j+n1,matrix);
+			//matrix[i+n1][j+n1]=false;
 		}
 		
 	}
