@@ -78,7 +78,7 @@ public class CD_624 {
 		@Override
 		public int compareTo(Cd cd1) {
 			// TODO Auto-generated method stub
-			return sum > cd1.sum ? -1 : sum < cd1.sum ? 1 : cd1.vals.toString().compareTo(vals.toString());
+			return sum > cd1.sum ? -1 : sum < cd1.sum ? 1 : cd1.vals.toString().toCharArray().length-(vals.toString().toCharArray().length);
 		}
 
 	}
