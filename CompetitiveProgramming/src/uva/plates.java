@@ -11,6 +11,7 @@ public class plates {
 		// TODO Auto-generated method stub
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+BufferedWriter out=new BufferedWriter(new OutputStreamWriter(System.out));
 
 		int n = Integer.parseInt(in.readLine());
 
@@ -20,36 +21,38 @@ public class plates {
 			char[] arr = in.readLine().toCharArray();
 
 			backtracking(arr, 0, new StringBuilder());
-			System.out.println(hs.size());
+			out.write(hs.size()+"\n");
 
 		}
+		out.close();
 
 	}
 
 	static void backtracking(char[] arr, int index, StringBuilder sb) {
 
-		if (sb.length() == 3 ) {
-if( hs.contains(sb.toString()))
-	sb.deleteCharAt(2);
-else {
-			hs.add(sb.toString());
-			sb.deleteCharAt(2);
-}
-		} else {
+		if (sb.length() == 3) {
+			if (hs.contains(sb.toString()))
+				sb.deleteCharAt(2);
+
+			else {
+				hs.add(sb.toString());
+				sb.deleteCharAt(2);
+			}
+		} else if (sb.length() < 3 && index >= arr.length)
+			sb.deleteCharAt(sb.length()-1);
+		else if (index < arr.length) {
 
 			for (int i = index; i < arr.length; i++) {
 				sb.append(arr[i]);
-				if (index + 1 < arr.length) {
 
-					backtracking(arr, index + 1, sb);
-					if(sb.length()>0)
-						sb.deleteCharAt(sb.length()-1);
-				}
+				backtracking(arr, i + 1, sb);
+				// if (sb.length() > 0)
+				// sb.deleteCharAt(sb.length() - 1);
 
 			}
 
-			if(sb.length()>0)
-			sb.deleteCharAt(sb.length()-1);
+			if (sb.length() > 0)
+				sb.deleteCharAt(sb.length() - 1);
 
 		}
 

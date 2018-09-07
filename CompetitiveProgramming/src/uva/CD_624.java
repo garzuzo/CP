@@ -6,66 +6,79 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.TreeSet;
 
 public class CD_624 {
 
-	static TreeSet<Cd> answ;
+	static Cd answ;
+	static boolean finished;
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 
-		Scanner in = new Scanner((System.in));
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
 		BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
 		String c;
-		while (in.hasNext()) {
-			answ = new TreeSet<Cd>();
-			int N = in.nextInt();
-			int nTracks = in.nextInt();
+		while ((c = in.readLine()) != null) {
+			answ = new Cd(0, new StringBuilder());
+			String[] cAct = c.split(" ");
+			int N = Integer.parseInt(cAct[0]);
+			int nTracks = Integer.parseInt(cAct[1]);
 			int arr[] = new int[nTracks];
 
 			for (int i = 0; i < nTracks; i++) {
-				arr[i] = in.nextInt();
+				arr[i] = Integer.parseInt(cAct[i + 2]);
 			}
+			finished = false;
+			backtracking(arr, 0, N, 0, new LinkedList<Integer>());
 
-			backtracking(arr, 0, N, 0, new ArrayList<Integer>());
-
-			System.out.println(answ.first().vals.toString() + "sum:" + answ.first().sum);
+			System.out.print(answ.vals.toString() + "sum:" + answ.sum + "\n");
 
 		}
+		out.close();
 
 	}
 
-	static void backtracking(int[] arr, int pointer, int N, int sum, ArrayList<Integer> act) {
+	static void backtracking(int[] arr, int pointer, int N, int sum, LinkedList<Integer> act) {
 
-		for (int i = pointer; i < arr.length; i++) {
-			if (sum + arr[i] <= N) {
-				act.add(arr[i]);
-				sum += arr[i];
-				backtracking(arr, i + 1, N, sum, act);
+		if (!finished) {
+			for (int i = pointer; i < arr.length && !finished; i++) {
+				if (sum + arr[i] <= N) {
+					act.offer(arr[i]);
+					// act.add(arr[i]);
+					sum += arr[i];
+					backtracking(arr, i + 1, N, sum, act);
+					if (!finished) {
+						StringBuilder sb = new StringBuilder();
 
-				StringBuilder sb = new StringBuilder();
+						if (sum > answ.sum) {
+							for (int j : act)
+								sb.append(j + " ");
 
-				for (int j = 0; j < act.size(); j++) {
-					sb.append(act.get(j) + " ");
+							Cd cdAct = new Cd(sum, sb);
+
+							answ = cdAct;
+						}
+						if (N == sum) {
+							finished = true;
+						}
+						sum -= arr[i];
+						act.pollLast();
+
+					}
 				}
 
-				Cd cdAct = new Cd(sum, sb);
-				answ.add(cdAct);
-
-				sum -= arr[pointer];
-				act.remove(act.size() - 1);
-
 			}
 
 		}
 
 	}
 
-	static class Cd implements Comparable<Cd> {
+	static class Cd {
 
 		int sum;
 		StringBuilder vals;
@@ -73,12 +86,6 @@ public class CD_624 {
 		Cd(int sum, StringBuilder vals) {
 			this.sum = sum;
 			this.vals = vals;
-		}
-
-		@Override
-		public int compareTo(Cd cd1) {
-			// TODO Auto-generated method stub
-			return sum > cd1.sum ? -1 : sum < cd1.sum ? 1 : cd1.vals.toString().toCharArray().length-(vals.toString().toCharArray().length);
 		}
 
 	}
